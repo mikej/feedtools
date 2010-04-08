@@ -1,0 +1,1042 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xmlns:creativeCommons="http://backend.userland.com/creativeCommonsRssModule" xmlns:re="http://purl.org/atompub/rank/1.0">
+    <title type="text">User mikej - Stack Overflow</title>
+    <link rel="self" href="http://stackoverflow.com/feeds/user/63034" type="application/atom+xml" />
+    <link rel="alternate" href="http://stackoverflow.com/users/63034" type="text/html" />
+    <subtitle>most recent 30 from stackoverflow.com</subtitle>
+    <updated>2010-04-06T12:06:24Z</updated>
+    <id>http://stackoverflow.com/feeds/user/63034</id>
+    <creativeCommons:license>http://www.creativecommons.org/licenses/by-nc/2.5/rdf</creativeCommons:license> 
+
+<entry>
+    <id>http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2570731#2570731</id>
+    <re:rank scheme="http://stackoverflow.com">2</re:rank>
+    <title type="text">Answer by mikej for Ruby send mail with smtp</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2570731#2570731" />
+    <published>2010-04-03T09:01:52Z</published>   
+    <updated>2010-04-03T09:01:52Z</updated>
+    <summary type="html">&lt;p&gt;&lt;a href=&quot;http://en.wikipedia.org/wiki/POP_before_SMTP&quot; rel=&quot;nofollow&quot;&gt;POP before SMTP&lt;/a&gt; isn't one of the authentication types supported by &lt;code&gt;Net::SMTP&lt;/code&gt; so I think you're going to have to use &lt;a href=&quot;http://ruby-doc.org/stdlib/libdoc/net/pop/rdoc/index.html&quot; rel=&quot;nofollow&quot;&gt;Net::POP3&lt;/a&gt; to do your POP3 login e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require 'net/pop'
+pop = Net::POP3.start(addr, port, account, password)
+pop.finish
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;Net::POP3&lt;/code&gt; is in the Standard Library so should be available anywhere that &lt;code&gt;Net::SMTP&lt;/code&gt; is.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2566209/ruby-switch-like-idiom/2566317#2566317</id>
+    <re:rank scheme="http://stackoverflow.com">0</re:rank>
+    <title type="text">Answer by mikej for Ruby switch like idiom</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2566209/ruby-switch-like-idiom/2566317#2566317" />
+    <published>2010-04-02T11:14:26Z</published>   
+    <updated>2010-04-02T11:14:26Z</updated>
+    <summary type="html">&lt;p&gt;As others have said, there are alternative ways of doing this in Ruby, but if you are just curious then an equivalent to that Python approach in Ruby (making use of &lt;a href=&quot;http://ruby-doc.org/core/classes/Object.html#M000332&quot; rel=&quot;nofollow&quot;&gt;Object#send&lt;/a&gt; once you have determined the method name) would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class MyHandler
+  def handle_test(arg)
+    puts &quot;handle_test called with #{arg}&quot;
+  end
+
+  def handle_other(arg)
+    puts &quot;handle_other called with #{arg}&quot;
+  end
+
+  def handle(type, *args)
+    method_name = &quot;handle_#{type}&quot;
+    if respond_to? method_name
+      send(method_name, args)
+    else
+      raise &quot;No handler method for #{type}&quot;
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can then do:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;h = MyHandler.new
+h.handle 'test', 'example'
+h.handle 'other', 'example'
+h.handle 'missing', 'example'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and the output would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;handle_test called with example
+handle_other called with example
+handle.rb:15:in `handle': No handler method for missing (RuntimeError)
+        from handle.rb:23
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2559490/why-does-this-ruby-if-not-behave-as-expected/2559515#2559515</id>
+    <re:rank scheme="http://stackoverflow.com">9</re:rank>
+    <title type="text">Answer by mikej for Why does this Ruby 'if' not behave as expected?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2559490/why-does-this-ruby-if-not-behave-as-expected/2559515#2559515" />
+    <published>2010-04-01T09:54:35Z</published>   
+    <updated>2010-04-01T17:43:31Z</updated>
+    <summary type="html">&lt;p&gt;You need an &lt;code&gt;end&lt;/code&gt; statement to close your &lt;code&gt;if&lt;/code&gt; i.e.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if(foo['bar'] == nil)
+   puts &quot;foo bar is nil :(&quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note that there is a &lt;code&gt;nil?&lt;/code&gt; method for checking if something is &lt;code&gt;nil&lt;/code&gt; and the brackets around your condition aren't necessary so it would be more idiomatic Ruby to write:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if foo['bar'].nil?
+  puts &quot;foo bar is nil :(&quot;
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;As &lt;a href=&quot;http://stackoverflow.com/users/204883/arkku&quot;&gt;Arkku&lt;/a&gt; commented, a single line &lt;code&gt;if&lt;/code&gt; can be written concisely as:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;puts &quot;foo bar is nil :(&quot; if foo['bar'].nil?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Which is better depends on the context (e.g. do you want to emphasise the condition or emphasise what happens if the condition is true) and a certain amount of personal preference. But as an example you might put a guard condition at the start of a method e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;raise &quot;bar needed&quot; if foo['bar'].nil?
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2556538/creating-has-many-relationships-in-activerecord-without-primary-key/2556840#2556840</id>
+    <re:rank scheme="http://stackoverflow.com">0</re:rank>
+    <title type="text">Answer by mikej for Creating has_many relationships in ActiveRecord without :primary_key</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2556538/creating-has-many-relationships-in-activerecord-without-primary-key/2556840#2556840" />
+    <published>2010-03-31T22:12:09Z</published>   
+    <updated>2010-03-31T22:12:09Z</updated>
+    <summary type="html">&lt;p&gt;It should be possible using &lt;code&gt;:finder_sql&lt;/code&gt; e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;has_many :foobars, :finder_sql =&amp;gt; 'select * from table where foreign_key = #{primary_key}'
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Note the use of single quotes around the query so that &lt;code&gt;#{primary_key}&lt;/code&gt; is not expanded at the time when the association is declared.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2537099/how-do-i-get-ruby-filelist-to-pick-up-files-without-a-name-like-htaccess-on-win/2537277#2537277</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for how do i get Ruby FileList to pick up files without a name, like .htaccess on windows</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2537099/how-do-i-get-ruby-filelist-to-pick-up-files-without-a-name-like-htaccess-on-win/2537277#2537277" />
+    <published>2010-03-29T10:45:07Z</published>   
+    <updated>2010-03-29T11:30:47Z</updated>
+    <summary type="html">&lt;p&gt;Assuming that &lt;code&gt;FileList&lt;/code&gt; here is the &lt;code&gt;FileList&lt;/code&gt; class from rake then the problem is in Ruby's underlying &lt;code&gt;Dir&lt;/code&gt; class (which is used by &lt;code&gt;FileList&lt;/code&gt;) not matching files starting with &lt;code&gt;.&lt;/code&gt; for the &lt;code&gt;*&lt;/code&gt; wildcard. The relevant portion of rake.rb is&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# Add matching glob patterns.
+def add_matching(pattern)
+  Dir[pattern].each do |fn|
+    self &amp;lt;&amp;lt; fn unless exclude?(fn)
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Below is an ugly hack that overrides &lt;code&gt;add_matching&lt;/code&gt; to also include files starting with &lt;code&gt;.&lt;/code&gt; Hopefully someone else will be along to suggest a more elegant solution.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Rake::FileList
+  def add_matching(pattern)
+    files = Dir[pattern]
+    # ugly hack to include files starting with . on Windows
+    if RUBY_PLATFORM =~ /mswin/
+      parts = File.split(pattern)
+      # if filename portion of the pattern starts with * also
+      # include the files matching '.' + the same pattern
+      if parts.last[0] == ?*
+        files += Dir[File.join(parts[0...-1] &amp;lt;&amp;lt; '.' + parts.last)]
+      end
+    end    
+    files.each do |fn|
+      self &amp;lt;&amp;lt; fn unless exclude?(fn)
+    end
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt; I have just tested this on Linux here and the files starting with &lt;code&gt;.&lt;/code&gt; are not included either. e.g. If I have a directory &lt;code&gt;/home/mikej/root&lt;/code&gt; with 2 subdirectories &lt;code&gt;a&lt;/code&gt; and &lt;code&gt;b&lt;/code&gt; where each contains &lt;code&gt;first.template&lt;/code&gt; and &lt;code&gt;.other.template&lt;/code&gt; then&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;Rake::FileList.new('home/mikej/root/**/*.template')
+=&amp;gt; [&quot;/home/mikej/root/a/first.template&quot;, &quot;/home/mikej/root/b/first.template&quot;]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;so I would double check the behaviour on Linux and verify that there isn't something else causing the difference in behaviour.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2522065/design-patterns-in-rails/2522101#2522101</id>
+    <re:rank scheme="http://stackoverflow.com">5</re:rank>
+    <title type="text">Answer by mikej for Design Patterns in Rails</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2522065/design-patterns-in-rails/2522101#2522101" />
+    <published>2010-03-26T09:16:42Z</published>   
+    <updated>2010-03-26T09:22:04Z</updated>
+    <summary type="html">&lt;p&gt;Topics such as REST, DRY etc are not really in the same category as the patterns covered by the Gang of Four. There is a book, &lt;a href=&quot;http://designpatternsinruby.com/&quot; rel=&quot;nofollow&quot;&gt;Design Patterns in Ruby&lt;/a&gt; which you might find useful as it covers how the original GoF patterns apply in Ruby. However, once you start programming in dynamic languages like Ruby you often find you don't need patterns in same the same way as you did in languages like C++ and Java.&lt;/p&gt;
+
+&lt;p&gt;I would also take a look at &lt;a href=&quot;http://rads.stackoverflow.com/amzn/click/0672328844&quot; rel=&quot;nofollow&quot;&gt;The Ruby Way&lt;/a&gt; (for general Ruby programming), &lt;a href=&quot;http://pragprog.com/titles/rails3&quot; rel=&quot;nofollow&quot;&gt;Agile Web Development with Rails&lt;/a&gt; (for a good introduction to Rails) and &lt;a href=&quot;http://www.pragprog.com/titles/tpp/the-pragmatic-programmer&quot; rel=&quot;nofollow&quot;&gt;The Pragmatic Programmer&lt;/a&gt; (which covers many of the general practices such as Don't Repeat Yourself.)&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2499472/how-does-a-message-bridge-relate-to-a-queue-in-weblogic/2499534#2499534</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for How does a message bridge relate to a queue in Weblogic?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2499472/how-does-a-message-bridge-relate-to-a-queue-in-weblogic/2499534#2499534" />
+    <published>2010-03-23T11:45:30Z</published>   
+    <updated>2010-03-23T11:45:30Z</updated>
+    <summary type="html">&lt;p&gt;From the Weblogic documentation:&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;The WebLogic Messaging Bridge is a
+  forwarding mechanism that provides
+  interoperability between WebLogic JMS
+  implementations, and between JMS and
+  other messaging products. Use the
+  Messaging Bridge to integrate your
+  messaging applications between:&lt;/p&gt;
+  
+  &lt;ul&gt;
+  &lt;li&gt;Any two implementations of WebLogic JMS, including those from separate
+  releases of WebLogic Server.&lt;/li&gt;
+  &lt;li&gt;WebLogic JMS implementations that reside in separate WebLogic domains.&lt;/li&gt;
+  &lt;li&gt;WebLogic JMS and a third-party JMS product (for example, MQSeries).&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;So transferring messages between a queue in one domain and a queue in another is an example of one possible use of a message bridge. The source and destination for your bridge can be queues, topics, or distributed destinations.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2460067/what-does-a-java-static-method-look-like-in-ruby/2460725#2460725</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for What does a Java static method look like in Ruby?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2460067/what-does-a-java-static-method-look-like-in-ruby/2460725#2460725" />
+    <published>2010-03-17T08:25:16Z</published>   
+    <updated>2010-03-17T08:25:16Z</updated>
+    <summary type="html">&lt;p&gt;Anders' answer is correct, however for utility methods like &lt;code&gt;mean&lt;/code&gt; you don't need to use a class, you can put the method in a &lt;a href=&quot;http://ruby-doc.org/core/classes/Module.html&quot; rel=&quot;nofollow&quot;&gt;module&lt;/a&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module MyUtils
+  def self.mean(values)
+    # implementation goes here
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The method would be called in the same way:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;avg = MyUtils.mean([1,2,3,4,5])
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2431299/how-to-evaluate-the-string-in-ruby-if-the-string-contains-ruby-command/2431332#2431332</id>
+    <re:rank scheme="http://stackoverflow.com">3</re:rank>
+    <title type="text">Answer by mikej for How to evaluate the string in ruby if the string contains ruby command?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2431299/how-to-evaluate-the-string-in-ruby-if-the-string-contains-ruby-command/2431332#2431332" />
+    <published>2010-03-12T08:24:56Z</published>   
+    <updated>2010-03-12T08:24:56Z</updated>
+    <summary type="html">&lt;p&gt;&lt;code&gt;eval&lt;/code&gt; would do what you describe in this instance. However this is a &lt;strong&gt;very bad idea&lt;/strong&gt; as it is susceptible to &lt;a href=&quot;http://en.wikipedia.org/wiki/SQL_injection&quot; rel=&quot;nofollow&quot;&gt;SQL injection&lt;/a&gt;. e.g. consider what would happen if &lt;code&gt;params[:id]&lt;/code&gt; was equal to &quot;1; delete * from queries&quot;.&lt;/p&gt;
+
+&lt;p&gt;If you need a way to store arbitrary queries in your database you would be better to store the parameterised version of the query:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;select * from user where id = ?
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and &lt;code&gt;eval&lt;/code&gt; the parameters separately.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2379285/python-modules-matching-a-pattern/2379353#2379353</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for Python modules matching a pattern</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2379285/python-modules-matching-a-pattern/2379353#2379353" />
+    <published>2010-03-04T12:52:46Z</published>   
+    <updated>2010-03-04T13:20:55Z</updated>
+    <summary type="html">&lt;p&gt;A module can be dynamically loaded using &lt;code&gt;__import__&lt;/code&gt; e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;my_module = __import__(&quot;mymodule&quot;)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and then passed to &lt;code&gt;testmod&lt;/code&gt; e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;doctest.testmod(my_module)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Assuming you can build a list of the matching modules using either &lt;a href=&quot;http://docs.python.org/library/glob.html&quot; rel=&quot;nofollow&quot;&gt;glob.glob&lt;/a&gt; or filtering the results from &lt;a href=&quot;http://docs.python.org/library/os.html#os.listdir&quot; rel=&quot;nofollow&quot;&gt;os.listdir&lt;/a&gt; you should be able to use this approach.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Update:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;To import &lt;code&gt;invenio.webtag&lt;/code&gt; try using a &lt;em&gt;fromlist&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module = __import__('invenio.webtag', globals(), locals(), ['invenio'], -1)
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;see &lt;a href=&quot;http://docs.python.org/library/functions.html#__import__&quot; rel=&quot;nofollow&quot;&gt;this documentation&lt;/a&gt; for the explanation.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2335311/delegation-example-cursed/2335777#2335777</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for delegation example cursed?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2335311/delegation-example-cursed/2335777#2335777" />
+    <published>2010-02-25T16:43:59Z</published>   
+    <updated>2010-02-25T16:43:59Z</updated>
+    <summary type="html">&lt;p&gt;Did you mean &lt;code&gt;super(@tmpfile)&lt;/code&gt; rather than &lt;code&gt;super(@tmpname)&lt;/code&gt; ?&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2286703/can-i-do-hash-has-keyvideo-or-video2-ruby/2287154#2287154</id>
+    <re:rank scheme="http://stackoverflow.com">4</re:rank>
+    <title type="text">Answer by mikej for can I do hash.has_key?('video' or 'video2') (ruby)</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2286703/can-i-do-hash-has-keyvideo-or-video2-ruby/2287154#2287154" />
+    <published>2010-02-18T08:20:23Z</published>   
+    <updated>2010-02-18T11:44:30Z</updated>
+    <summary type="html">&lt;p&gt;If you want the general case of &lt;em&gt;video&lt;/em&gt; followed by a digit without explicitly listing all the combinations there are a couple of methods from &lt;a href=&quot;http://ruby-doc.org/core/classes/Enumerable.html&quot; rel=&quot;nofollow&quot;&gt;Enumerable&lt;/a&gt; that you could use in combination with a regular expression.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;hash.keys&lt;/code&gt; is an array of the keys from &lt;code&gt;hash&lt;/code&gt; and &lt;code&gt;^video\d$&lt;/code&gt; matches video followed by a digit. &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# true if the block returns true for any element    
+hash.keys.any? { |k| k.match(/^video\d$/ }
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;or&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# grep returns an array of the matching elements
+hash.keys.grep(/^video\d$/).size &amp;gt; 0
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;code&gt;grep&lt;/code&gt; would also allow you to capture the matching key(s) if you needed that information for the next bit of your code e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;if (matched_keys = hash.keys.grep(/^video\d$/)).size &amp;gt; 0
+  puts &quot;Matching keys #{matched_keys.inspect}&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Furthermore, if the prefix of key we're looking for is in a variable rather than a hard coded string we can do something along the lines of:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;prefix = 'video'
+# use an interpolated string, note the need to escape the
+# \ in \d
+hash.keys.any? { |k| k.match(&quot;^#{prefix}\\d$&quot;) }
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2274424/how-to-delete-desired-text-delete-undesired-text-and-paste-desired-text-i/2274513#2274513</id>
+    <re:rank scheme="http://stackoverflow.com">8</re:rank>
+    <title type="text">Answer by mikej for How to Delete (desired text), delete (undesired text), and paste (desired text) in Vim</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2274424/how-to-delete-desired-text-delete-undesired-text-and-paste-desired-text-i/2274513#2274513" />
+    <published>2010-02-16T16:38:44Z</published>   
+    <updated>2010-02-16T16:45:02Z</updated>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;A few possible solutions:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Delete the undesired text first :)&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;or&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;When deleting the desired text store it in a register other than the default register e.g. to delete the desired text to the end of the current line and store it in register &lt;em&gt;b&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;bd$
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then delete your undesired text.&lt;/p&gt;
+
+&lt;p&gt;Then paste the contents of register &lt;em&gt;b&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;bp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;em&gt;or&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;Delete the undesired text to the black hole register as suggested in the answer linked to by &lt;a href=&quot;http://stackoverflow.com/users/274503/yarek-t&quot;&gt;Yarek T&lt;/a&gt; using:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&quot;_d
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2249431/ruby-on-rails-put-a-link-in-a-flashnotice/2252699#2252699</id>
+    <re:rank scheme="http://stackoverflow.com">2</re:rank>
+    <title type="text">Answer by mikej for Ruby on rails: put a link in a flash[:notice]</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2249431/ruby-on-rails-put-a-link-in-a-flashnotice/2252699#2252699" />
+    <published>2010-02-12T15:08:04Z</published>   
+    <updated>2010-02-12T15:08:04Z</updated>
+    <summary type="html">&lt;p&gt;As nas commented, &lt;code&gt;link_to&lt;/code&gt; is not available from your controller unless you include the appropriate helper module, but &lt;code&gt;url_for&lt;/code&gt; is. Therefore I'd do pretty much what Emily said except use &lt;code&gt;url_for&lt;/code&gt; instead of hardcoding a URL.&lt;/p&gt;
+
+&lt;p&gt;e.g. if a job were defined as a resource in your routes:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;link = &quot;&amp;lt;a href=\&quot;#{url_for(update)}\&quot;&amp;gt;#{update.id}&amp;lt;/a&amp;gt;&quot;    
+flash[:notice] = &quot;Created job number #{link}&quot;
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2223547/how-to-set-rails-env-for-a-script-or-batch-file/2223597#2223597</id>
+    <re:rank scheme="http://stackoverflow.com">2</re:rank>
+    <title type="text">Answer by mikej for How to set rails_env for a script or batch file</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2223547/how-to-set-rails-env-for-a-script-or-batch-file/2223597#2223597" />
+    <published>2010-02-08T17:40:35Z</published>   
+    <updated>2010-02-08T17:48:46Z</updated>
+    <summary type="html">&lt;p&gt;To initialise the Rails environment, instead of putting &lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;require &quot;#{File.dirname(__FILE__)}/../config/environment.rb&quot;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;launch your batch file using &lt;code&gt;script/runner&lt;/code&gt; and specify the environment with the &lt;code&gt;-e&lt;/code&gt; option&lt;/p&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;script/runner -e production lib/batch.rb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I think the above is The Rails Way of writing and executing a script that needs the Rails framework initialised in order to work. The alternative, as &lt;a href=&quot;http://stackoverflow.com/users/125805/neutrino&quot;&gt;neutrino&lt;/a&gt; says, is to prefix the command with RAILS_ENV=&lt;em&gt;value&lt;/em&gt; e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ RAILS_ENV=production lib/batch.rb
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;This is a standard shell feature to set an environment variable prior to executing a command.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2216657/simple-custom-range-in-ruby/2216693#2216693</id>
+    <re:rank scheme="http://stackoverflow.com">6</re:rank>
+    <title type="text">Answer by mikej for Simple custom range in Ruby</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2216657/simple-custom-range-in-ruby/2216693#2216693" />
+    <published>2010-02-07T10:38:26Z</published>   
+    <updated>2010-02-07T12:59:59Z</updated>
+    <summary type="html">&lt;p&gt;If you want a function to generate the range of values for inclusion in &lt;code&gt;:conditions&lt;/code&gt; that will work for ranges like Sat-Tues as well as Mon-Sat how about:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def day_range(from, to)
+  if from &amp;lt;= to
+    (from..to).to_a
+  else
+    (from..7).to_a + (1..to).to_a
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;irb(main):032:0&amp;gt; day_range(1, 6)
+=&amp;gt; [1, 2, 3, 4, 5, 6]
+irb(main):033:0&amp;gt; day_range(6, 2)
+=&amp;gt; [6, 7, 1, 2]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Then it is just a case of mapping the day names to the day numbers if required.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2213355/ruby-double-question-mark/2213396#2213396</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for ruby double question mark</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2213355/ruby-double-question-mark/2213396#2213396" />
+    <published>2010-02-06T14:26:46Z</published>   
+    <updated>2010-02-06T20:10:51Z</updated>
+    <summary type="html">&lt;p&gt;As Ryan says, the &lt;code&gt;?&lt;/code&gt; prefix gives you the ASCII value of a character. The reason why this is useful in this context is that when you use the index notation on a string in Ruby 1.8 the ASCII value is returned rather than the character. e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;irb(main):009:0&amp;gt; str = 'hello'
+=&amp;gt; &quot;hello&quot;
+irb(main):010:0&amp;gt; str[-1]
+=&amp;gt; 111
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;so the following wouldn't test if the last character of a string was the letter 'o'&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;irb(main):011:0&amp;gt; str[-1] == 'o'
+=&amp;gt; false
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;but this would:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;irb(main):012:0&amp;gt; str[-1] == ?o
+=&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and (provided you know what the ? does!) this is slightly clearer than&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;irb(main):013:0&amp;gt; str[-1] == 111
+=&amp;gt; true
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2207249/getting-private-method-error-in-ruby-on-rails/2207382#2207382</id>
+    <re:rank scheme="http://stackoverflow.com">3</re:rank>
+    <title type="text">Answer by mikej for Getting Private Method error in Ruby on Rails</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2207249/getting-private-method-error-in-ruby-on-rails/2207382#2207382" />
+    <published>2010-02-05T13:13:55Z</published>   
+    <updated>2010-02-05T13:13:55Z</updated>
+    <summary type="html">&lt;p&gt;&lt;strong&gt;private method gsub! called&lt;/strong&gt; when using &lt;code&gt;Time.parse&lt;/code&gt; usually means that you have called &lt;code&gt;parse&lt;/code&gt; with a &lt;code&gt;Time&lt;/code&gt; object rather than a &lt;code&gt;String&lt;/code&gt; so it sounds like your code is actually trying to parse the time twice.&lt;/p&gt;
+
+&lt;p&gt;e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;gt;&amp;gt; t = Time.now
+=&amp;gt; Fri Feb 05 13:12:17 +0000 2010
+&amp;gt;&amp;gt; Time.parse(t)
+NoMethodError: private method `gsub!' called for Fri Feb 05 13:12:17 +0000 2010:Time
+        from c:/ruby/lib/ruby/1.8/date/format.rb:965:in `_parse'
+        from c:/ruby/lib/ruby/1.8/time.rb:240:in `parse'
+        from (irb):6
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2203800/difference-between-mattr-accessor-and-cattr-accessor-in-activesupport/2204119#2204119</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for Difference between mattr_accessor and cattr_accessor in ActiveSupport?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2203800/difference-between-mattr-accessor-and-cattr-accessor-in-activesupport/2204119#2204119" />
+    <published>2010-02-04T23:51:46Z</published>   
+    <updated>2010-02-05T07:07:29Z</updated>
+    <summary type="html">&lt;p&gt;&lt;code&gt;Module&lt;/code&gt; is the superclass of the class &lt;code&gt;Class&lt;/code&gt; so if a suitably generic name could be thought of then the methods for defining accessors could be put on &lt;code&gt;Module&lt;/code&gt; and it would work for modules and classes. Notice that the follow works:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;class Bar
+  mattr_accessor :test
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;but&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;module Foo
+  cattr_accessor :test
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;wouldn't work.&lt;/p&gt;
+
+&lt;p&gt;Having a &lt;em&gt;c&lt;/em&gt; prefix on the methods that should be used inside classes and an &lt;em&gt;m&lt;/em&gt; prefix on the methods for use inside modules just helps to make your code a bit clearer.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2183047/ruby-mechanize-select-link-by-classname-and-other-questions/2186536#2186536</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for Ruby - Mechanize: Select link by classname and other questions</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2183047/ruby-mechanize-select-link-by-classname-and-other-questions/2186536#2186536" />
+    <published>2010-02-02T18:21:53Z</published>   
+    <updated>2010-02-02T18:41:02Z</updated>
+    <summary type="html">&lt;p&gt;You can build a list of just the search result links by changing your code as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;page.links.each do |ll|
+  cls = ll.attributes.attributes['class']
+  page_links &amp;lt;&amp;lt; ll if cls &amp;amp;&amp;amp; cls.value == 'l'
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;For each element &lt;code&gt;ll&lt;/code&gt; in &lt;code&gt;page.links&lt;/code&gt;, &lt;code&gt;ll.attributes&lt;/code&gt; is a &lt;code&gt;Nokogiri::XML::Element&lt;/code&gt; and &lt;code&gt;ll.attributes.attributes&lt;/code&gt; is a &lt;code&gt;Hash&lt;/code&gt; containing the attributes on the link, hence the need for &lt;code&gt;ll.attributes.attributes&lt;/code&gt; to get at the actual class and the need for the nil check before comparing the value to 'l'&lt;/p&gt;
+
+&lt;p&gt;The problem with using &lt;code&gt;:id&lt;/code&gt; in the criteria to find a form is that it clashes with Ruby's &lt;code&gt;Object#id&lt;/code&gt; method for returning a Ruby object's internal id. I'm not sure what the work around for this is. You would have no problem selecting the form by some other attribute (e.g. its action.)&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2173811/rails-primary-key-and-object-id/2173848#2173848</id>
+    <re:rank scheme="http://stackoverflow.com">2</re:rank>
+    <title type="text">Answer by mikej for Rails primary key and object id </title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2173811/rails-primary-key-and-object-id/2173848#2173848" />
+    <published>2010-01-31T23:24:12Z</published>   
+    <updated>2010-01-31T23:24:12Z</updated>
+    <summary type="html">&lt;p&gt;It sounds like the object you're called &lt;code&gt;.id&lt;/code&gt; on is not actually an ActiveRecord model. You should only see that warning for Ruby objects where &lt;code&gt;.id&lt;/code&gt; is the soon-to-be deprecated version of &lt;code&gt;Object#object_id&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;However, another way to access the primary key for the field with an ActiveRecord model is &lt;code&gt;model.attributes['id']&lt;/code&gt; so you could try that.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2170372/writing-a-meta-refresh-method-for-rails/2170868#2170868</id>
+    <re:rank scheme="http://stackoverflow.com">0</re:rank>
+    <title type="text">Answer by mikej for writing a meta refresh method for rails</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2170372/writing-a-meta-refresh-method-for-rails/2170868#2170868" />
+    <published>2010-01-31T07:07:41Z</published>   
+    <updated>2010-01-31T09:15:51Z</updated>
+    <summary type="html">&lt;p&gt;One idea is to use an &lt;a href=&quot;http://api.rubyonrails.org/classes/ActionController/Filters/ClassMethods.html#M000529&quot; rel=&quot;nofollow&quot;&gt;after_filter&lt;/a&gt; in application_controller.rb to add the meta refresh tag if appropriate e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def after_filter
+  if @redirect_url and @refresh_delay
+    # update controller.response.body to add meta refresh tag
+  end
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I'm not sure that this would be as efficient as using &lt;code&gt;yield :refresh_tag&lt;/code&gt; as you would have to parse the HTML to insert the &lt;code&gt;meta&lt;/code&gt; tag after the &lt;code&gt;head&lt;/code&gt; tag but it is a possible approach to investigate.&lt;/p&gt;
+
+&lt;p&gt;Another idea would be to just put your header HTML in a partial that you then include in your other pages. e.g.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Header partial:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html lang=&quot;en&quot;&amp;gt;
+  &amp;lt;head&amp;gt;
+    &amp;lt;%= yield :refresh_tag %&amp;gt;
+  &amp;lt;/head&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;Footer partial:&lt;/strong&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;&amp;lt;/html&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2156121/delegating-instance-methods-to-the-class-method/2156300#2156300</id>
+    <re:rank scheme="http://stackoverflow.com">4</re:rank>
+    <title type="text">Answer by mikej for Delegating instance methods to the class method</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2156121/delegating-instance-methods-to-the-class-method/2156300#2156300" />
+    <published>2010-01-28T16:55:59Z</published>   
+    <updated>2010-01-28T16:55:59Z</updated>
+    <summary type="html">&lt;p&gt;From a design perspective, I would argue that, even though the answer is the same for all &lt;code&gt;Foos&lt;/code&gt;, colour and spherical? are properties of instances of &lt;code&gt;Foo&lt;/code&gt; and as such should be defined as instance methods rather than class methods.&lt;/p&gt;
+
+&lt;p&gt;I can however see some cases where you would want this behaviour e.g. when you have &lt;code&gt;Bars&lt;/code&gt; in your system as well all of which are blue and you are passed a class somewhere in your code and would like to know what colour an instance will be before you call &lt;code&gt;new&lt;/code&gt; on the class.&lt;/p&gt;
+
+&lt;p&gt;Also, you are correct that ActiveRecord does make extensive use of &lt;code&gt;method_missing&lt;/code&gt; e.g. for dynamic finders so if you went down that route you would need to ensure that your method_missing called the one from the superclass if it determined that the method name was not one that it could handle itself.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2154071/what-is-the-difference-between-url-for-methods/2154732#2154732</id>
+    <re:rank scheme="http://stackoverflow.com">0</re:rank>
+    <title type="text">Answer by mikej for What is the difference between url_for methods?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2154071/what-is-the-difference-between-url-for-methods/2154732#2154732" />
+    <published>2010-01-28T13:21:00Z</published>   
+    <updated>2010-01-28T13:21:00Z</updated>
+    <summary type="html">&lt;p&gt;The version in &lt;code&gt;UrlHelper&lt;/code&gt; is the one that is available inside your views. Here is its source:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def url_for(options = {})
+  options ||= {}
+   url = case options
+   when String
+     escape = true
+     options
+   when Hash
+     options = { :only_path =&amp;gt; options[:host].nil? }.update(options.symbolize_keys)
+     escape  = options.key?(:escape) ? options.delete(:escape) : true
+     @controller.send(:url_for, options)
+   when :back
+     escape = false
+     @controller.request.env[&quot;HTTP_REFERER&quot;] || 'javascript:history.back()'
+   else
+     escape = false
+     polymorphic_path(options)
+   end
+
+   escape ? escape_once(url) : url
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In the case when the parameter passed to this &lt;code&gt;url_for&lt;/code&gt; is a Hash it delegates to &lt;code&gt;controller.url_for&lt;/code&gt; which in turn delegates to &lt;code&gt;ActionController::UrlWriter.url_for&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;The version in &lt;code&gt;ActionView::Helpers::UrlHelper.url_for&lt;/code&gt; then adds some extra behaviour for when it is called with other types of arguments. In the case when a String is passed it is escaped for you. When called with the symbol :back which either links to the referer if available or falls back to a JavaScript &lt;code&gt;history.back()&lt;/code&gt; call.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2150993/mysql-is-there-a-more-efficient-way-to-link-these-tables/2151022#2151022</id>
+    <re:rank scheme="http://stackoverflow.com">5</re:rank>
+    <title type="text">Answer by mikej for [MySQL]: Is there a more 'efficient' way to link these tables?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2150993/mysql-is-there-a-more-efficient-way-to-link-these-tables/2151022#2151022" />
+    <published>2010-01-27T23:09:22Z</published>   
+    <updated>2010-01-27T23:09:22Z</updated>
+    <summary type="html">&lt;p&gt;If you are modelling &lt;em&gt;a transaction can have 0 or more discounts and a discount can be applied to 0 or more transactions&lt;/em&gt; then this 3 table approach is the standard way to go.&lt;/p&gt;
+
+&lt;p&gt;The only change I would make would be to give discount a numeric primary key in addition to the code field and use this as the foreign key in Transaction_Discount.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2147575/using-getcwd-when-running-in-eclipse/2148633#2148633</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for Using getcwd when running in Eclipse</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2147575/using-getcwd-when-running-in-eclipse/2148633#2148633" />
+    <published>2010-01-27T16:40:22Z</published>   
+    <updated>2010-01-27T16:46:04Z</updated>
+    <summary type="html">&lt;p&gt;&lt;code&gt;os.getcwd()&lt;/code&gt; returns the current working directory.&lt;/p&gt;
+
+&lt;p&gt;When running a Python program from Eclipse you can specify what the working directory should be on the Arguments tab of the Run Configuration. This will let you override the value from the project folder (or whatever the default might be.)&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&quot;http://www.flickr.com/photos/mikej/4309550038/&quot; rel=&quot;nofollow&quot; title=&quot;python_working_folder by mikej, on Flickr&quot;&gt;&lt;img src=&quot;http://farm5.static.flickr.com/4035/4309550038_ef44587235_o.png&quot; width=&quot;512&quot; height=&quot;485&quot; alt=&quot;Python Run Configurations Arguments tab&quot; /&gt;&lt;/a&gt;&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2129227/code-translation-from-python-to-ruby/2129378#2129378</id>
+    <re:rank scheme="http://stackoverflow.com">2</re:rank>
+    <title type="text">Answer by mikej for Code translation, from Python to Ruby</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2129227/code-translation-from-python-to-ruby/2129378#2129378" />
+    <published>2010-01-24T23:30:21Z</published>   
+    <updated>2010-01-24T23:55:00Z</updated>
+    <summary type="html">&lt;p&gt;Looking at each method in turn, starting with &lt;code&gt;outer_join&lt;/code&gt;.&lt;/p&gt;
+
+&lt;p&gt;In Python, &lt;code&gt;join&lt;/code&gt; is a method on strings that takes a sequence and joins the elements delimited by the string. e.g. &lt;code&gt;'|'.join(['p, 'p', 'p'])&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In Ruby, &lt;code&gt;join&lt;/code&gt; is a method on arrays that takes the delimiter as an argument e.g. &lt;code&gt;['p', 'p', 'p'].join('|')&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;so the Ruby version of &lt;code&gt;outer_join&lt;/code&gt; would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def outer_join(sep, ss):
+  sep + ss.join(sep) + sep
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Next look at &lt;code&gt;expand_blanks&lt;/code&gt;, the intention here is to replace a digit with the equivalent number of spaces. In Ruby this can be achieved using &lt;code&gt;gsub&lt;/code&gt; to replace all occurrences of a pattern in a string. &lt;code&gt;gsub&lt;/code&gt; can be called with a block that will be passed each match substring and returns the string that the match should be replaced with. So the Ruby code would be:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def expand_blanks(fen)
+  fen.gsub(/\d/) { |match| ' ' * match.to_i }
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Finally in &lt;code&gt;ascii_draw_chess_position&lt;/code&gt; we can use &lt;code&gt;gsub&lt;/code&gt; again as an equivalent to Python's &lt;code&gt;replace&lt;/code&gt; method and use Ruby's &lt;code&gt;map&lt;/code&gt; function in place of what was achieved using a list comprehension in Python as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def ascii_draw_chess_position(fen)
+  pieces = expand_blanks(fen).gsub('/', '')
+  divider = &quot;+-+-+-+-+-+-+-+-+\n&quot;
+  rows = (0...8).map do |i|
+    row = pieces[i * 8...(i + 1) * 8].split('')
+    outer_join(&quot;|&quot;,row) + &quot;\n&quot;
+  end
+  puts outer_join(divider, rows)
+end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Let me know if you need any more details on the above.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2123734/urls-from-gsub-not-correct/2123852#2123852</id>
+    <re:rank scheme="http://stackoverflow.com">3</re:rank>
+    <title type="text">Answer by mikej for urls from gsub not correct</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2123734/urls-from-gsub-not-correct/2123852#2123852" />
+    <published>2010-01-23T16:42:57Z</published>   
+    <updated>2010-01-23T17:02:16Z</updated>
+    <summary type="html">&lt;p&gt;&lt;em&gt;This is an explanation of what your 2 examples do. Whilst it isn't really an answer it's a bit long to fit in a comment.&lt;/em&gt;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;=~&lt;/code&gt; returns the position where a match occurs or &lt;code&gt;nil&lt;/code&gt; if no match is found.&lt;/p&gt;
+
+&lt;p&gt;In your first example 'http://ale.it' matches &lt;code&gt;URI::regexp&lt;/code&gt; starting at position 0 so you get &lt;code&gt;0.nil?&lt;/code&gt; which is false, converted to a string &quot;false&quot;&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;gsub&lt;/code&gt; in your second example takes 2 parameters, a pattern and a replacement string and replaces all matches of the pattern with the replacement.&lt;/p&gt;
+
+&lt;p&gt;'\0' doesn't match &lt;code&gt;URI::regexp&lt;/code&gt; so &lt;code&gt;('\0' =~ URI::regexp).nil?&lt;/code&gt; is true and with &lt;code&gt;to_s&lt;/code&gt; applied is the string &quot;true&quot;. &lt;/p&gt;
+
+&lt;p&gt;&quot;http://ale.it&quot; matches &lt;code&gt;/http[s]?:\/\/[^\s]+/&lt;/code&gt; so gets replaced with &quot;true&quot;.&lt;/p&gt;
+
+&lt;p&gt;You will have to expand your question to explain what you're trying to achieve.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2116584/wiki-software-that-runs-wiki-rubyonrails-org-available-for-download/2116612#2116612</id>
+    <re:rank scheme="http://stackoverflow.com">1</re:rank>
+    <title type="text">Answer by mikej for Wiki software that runs wiki.rubyonrails.org available for download?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2116584/wiki-software-that-runs-wiki-rubyonrails-org-available-for-download/2116612#2116612" />
+    <published>2010-01-22T10:33:15Z</published>   
+    <updated>2010-01-22T10:33:15Z</updated>
+    <summary type="html">&lt;p&gt;From the meta generator tag in the source of any page on &lt;a href=&quot;http://wiki.rubyonrails.org/&quot; rel=&quot;nofollow&quot;&gt;http://wiki.rubyonrails.org/&lt;/a&gt; it appears to be &lt;a href=&quot;http://www.dokuwiki.org/dokuwiki&quot; rel=&quot;nofollow&quot;&gt;DokuWiki&lt;/a&gt;&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2101090/ruby-why-cant-i-use-mkdir-with-a-pathname-object/2101591#2101591</id>
+    <re:rank scheme="http://stackoverflow.com">2</re:rank>
+    <title type="text">Answer by mikej for Ruby - why can't I use mkdir with a Pathname object</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>    
+    <link rel="alternate" href="http://stackoverflow.com/questions/2101090/ruby-why-cant-i-use-mkdir-with-a-pathname-object/2101591#2101591" />
+    <published>2010-01-20T13:24:02Z</published>   
+    <updated>2010-01-20T13:24:02Z</updated>
+    <summary type="html">&lt;p&gt;Out of interest, the reason why you get &lt;em&gt;can't convert String into Integer&lt;/em&gt; is because &lt;code&gt;Pathname.mkdir&lt;/code&gt; is actually a wrapper around &lt;code&gt;Dir.mkdir&lt;/code&gt; as follows:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;def mkdir(*args) Dir.mkdir(@path, *args) end
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The path represented by the &lt;code&gt;Pathname&lt;/code&gt; object is passed as the first parameter to &lt;code&gt;Dir.mkdir&lt;/code&gt;, followed by any parameters passed to &lt;code&gt;Pathname.mkdir&lt;/code&gt;. The 2nd parameter for &lt;code&gt;Dir.mkdir&lt;/code&gt; is the numeric access permissions that you would like the directory created to have. Hence in your example &lt;code&gt;&quot;123adam&quot;&lt;/code&gt; is being passed to &lt;code&gt;Dir.mkdir&lt;/code&gt; where a number is expected.&lt;/p&gt;
+</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp?cid=2585454</id>
+    <title type="text">Comment by mikej on Ruby send mail with smtp</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp" />
+    <published>2010-04-05T14:42:09Z</published>   
+    <updated>2010-04-05T14:42:09Z</updated>
+    <summary type="html">The 4/05/10 edit probably works because you can send email to yourself without authentication. It's likely only relaying to other domains that requires the POP before SMTP.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2577798/actionmailer-formatted-from?cid=2584862</id>
+    <title type="text">Comment by mikej on actionmailer formatted from</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2577798/actionmailer-formatted-from" />
+    <published>2010-04-05T12:47:08Z</published>   
+    <updated>2010-04-05T12:47:08Z</updated>
+    <summary type="html">What version of Rails? Is it possible you're using one affected by &lt;a href=&quot;https://rails.lighthouseapp.com/projects/8994/tickets/2340&quot; rel=&quot;nofollow&quot;&gt;rails.lighthouseapp.com/projects/8994/tickets/&amp;hellip;&lt;/a&gt; / &lt;a href=&quot;https://rails.lighthouseapp.com/projects/8994/tickets/3078-actionmailer-233-broke-display-name-support-in-from-address-when-using-smtp&quot; rel=&quot;nofollow&quot;&gt;rails.lighthouseapp.com/projects/8994/tickets/&amp;hellip;&lt;/a&gt;</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2570731?cid=2584124#2570731</id>
+    <title type="text">Comment by mikej on Ruby send mail with smtp</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2570731#2570731" />
+    <published>2010-04-05T09:40:05Z</published>   
+    <updated>2010-04-05T09:40:05Z</updated>
+    <summary type="html">At the moment you're doing your &lt;code&gt;Net::SMTP.start&lt;/code&gt; from inside the &lt;code&gt;Net::POP3.start&lt;/code&gt; block. What if you move it outside? Do you get a descriptive message with the 500 error giving any clues?</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2573512?cid=2582513#2573512</id>
+    <title type="text">Comment by mikej on Ruby send mail with smtp</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2573512#2573512" />
+    <published>2010-04-04T23:35:42Z</published>   
+    <updated>2010-04-04T23:35:42Z</updated>
+    <summary type="html">If you open a telnet connection on the appropriate port numbers (110 for POP and 25 for SMTP) then you can send raw commands.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp?cid=2582350</id>
+    <title type="text">Comment by mikej on Ruby send mail with smtp</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp" />
+    <published>2010-04-04T22:47:21Z</published>   
+    <updated>2010-04-04T22:47:21Z</updated>
+    <summary type="html">I suspect the reason for the 500 error when doing &lt;code&gt;pop.finish&lt;/code&gt; is that if you pass a block to &lt;code&gt;POP3.start&lt;/code&gt; as you're doing above then the connection is automatically closed for you at the end of the block so by putting in a &lt;code&gt;pop.close&lt;/code&gt; you're trying to close the connection twice.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2570731?cid=2577799#2570731</id>
+    <title type="text">Comment by mikej on Ruby send mail with smtp</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2570176/ruby-send-mail-with-smtp/2570731#2570731" />
+    <published>2010-04-03T18:32:55Z</published>   
+    <updated>2010-04-03T18:32:55Z</updated>
+    <summary type="html">the &lt;code&gt;start&lt;/code&gt; should connect to the server and log you in. Try inserting a &lt;code&gt;puts pop.n&amp;#95;mails&lt;/code&gt; after the &lt;code&gt;POP3.start&lt;/code&gt; - this should print the number of messages in the mail box as a diagnostic that you're definitely talking to the POP server. Also try doing the &lt;code&gt;pop.finish&lt;/code&gt; before making your SMTP connection. What happens now if you actually try to &lt;b&gt;send&lt;/b&gt; a message via SMTP?</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2567133/work-with-rescue-in-rails?cid=2572190</id>
+    <title type="text">Comment by mikej on work with rescue in Rails</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2567133/work-with-rescue-in-rails" />
+    <published>2010-04-02T15:47:57Z</published>   
+    <updated>2010-04-02T15:47:57Z</updated>
+    <summary type="html">Is this actual code from your app? As it stands it looks like you are redirecting back to the same action (index) which will result in an infinite loop.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2567133/work-with-rescue-in-rails/2567153?cid=2571859#2567153</id>
+    <title type="text">Comment by mikej on work with rescue in Rails</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2567133/work-with-rescue-in-rails/2567153#2567153" />
+    <published>2010-04-02T14:56:07Z</published>   
+    <updated>2010-04-02T14:56:07Z</updated>
+    <summary type="html">I am pretty sure this is not right. &lt;code&gt;find&lt;/code&gt; with an invalid ID will raise &lt;code&gt;ActiveRecord::RecordNotFound&lt;/code&gt;. If you use one of the dynamic finders e.g. &lt;code&gt;User.find&amp;#95;by&amp;#95;name&lt;/code&gt; with a value that doesn't match a record then that will return &lt;code&gt;nil&lt;/code&gt;. See &lt;a href=&quot;http://api.rubyonrails.org/classes/ActiveRecord/Base.html#M002263&quot; rel=&quot;nofollow&quot;&gt;api.rubyonrails.org/classes/ActiveRecord/&amp;hellip;&lt;/a&gt;</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2559490/why-does-this-ruby-if-not-behave-as-expected/2559515?cid=2565760#2559515</id>
+    <title type="text">Comment by mikej on Why does this Ruby 'if' not behave as expected?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2559490/why-does-this-ruby-if-not-behave-as-expected/2559515#2559515" />
+    <published>2010-04-01T17:29:17Z</published>   
+    <updated>2010-04-01T17:29:17Z</updated>
+    <summary type="html">@Arkku Yep, I will update the answer to include this for completeness.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2537099/how-do-i-get-ruby-filelist-to-pick-up-files-without-a-name-like-htaccess-on-win/2537277?cid=2537557#2537277</id>
+    <title type="text">Comment by mikej on how do i get Ruby FileList to pick up files without a name, like .htaccess on windows</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2537099/how-do-i-get-ruby-filelist-to-pick-up-files-without-a-name-like-htaccess-on-win/2537277#2537277" />
+    <published>2010-03-29T11:33:37Z</published>   
+    <updated>2010-03-29T11:33:37Z</updated>
+    <summary type="html">@Andrew Bullock please see the update I've done describing the result of my testing it on Linux as that also doesn't seem to include the . files - could it be a difference in the version of Ruby on the 2 platforms? I'm on 1.8.6 in both cases.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2537099/how-do-i-get-ruby-filelist-to-pick-up-files-without-a-name-like-htaccess-on-win/2537277?cid=2537429#2537277</id>
+    <title type="text">Comment by mikej on how do i get Ruby FileList to pick up files without a name, like .htaccess on windows</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2537099/how-do-i-get-ruby-filelist-to-pick-up-files-without-a-name-like-htaccess-on-win/2537277#2537277" />
+    <published>2010-03-29T11:11:05Z</published>   
+    <updated>2010-03-29T11:11:05Z</updated>
+    <summary type="html">I haven't found an alternative way as the other methods on &lt;code&gt;Dir&lt;/code&gt; also behave the same. However see the updated answer for a workaround.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2486911/rails-2-support-after-rails-3-has-been-released/2487548?cid=2513672#2487548</id>
+    <title type="text">Comment by mikej on Rails 2 support after Rails 3 has been released</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2486911/rails-2-support-after-rails-3-has-been-released/2487548#2487548" />
+    <published>2010-03-25T15:47:23Z</published>   
+    <updated>2010-03-25T15:47:23Z</updated>
+    <summary type="html">See this blog post from Pratik Naik: &lt;a href=&quot;http://m.onkey.org/2010/1/22/active-record-query-interface&quot; rel=&quot;nofollow&quot;&gt;m.onkey.org/2010/1/22/&amp;hellip;&lt;/a&gt; It states It states these deprecations will be effective in Rails’ 3.1 release (not Rails 3) and will be fully removed in Rails 3.2, though there will be an official plugin to continue supporting them. </summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2507416/ave-releted-to-my-project?cid=2502713</id>
+    <title type="text">Comment by mikej on ave releted to my project</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2507416/ave-releted-to-my-project" />
+    <published>2010-03-24T12:18:48Z</published>   
+    <updated>2010-03-24T12:18:48Z</updated>
+    <summary type="html">I think you will need to add some more details and examples before people can help you. Post the table structures and the join query that you have tried.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2500929/why-is-php-not-allowing-comparison/2501157?cid=2496112#2501157</id>
+    <title type="text">Comment by mikej on Why is PHP not allowing comparison?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2500929/why-is-php-not-allowing-comparison/2501157#2501157" />
+    <published>2010-03-23T16:14:04Z</published>   
+    <updated>2010-03-23T16:14:04Z</updated>
+    <summary type="html">The fact that &lt;code&gt;trim&lt;/code&gt; did the trick implies there is leading or trailing white space in the database field. It is probably worth investigating where this is coming from.</summary>
+</entry>
+<entry>
+    <id>http://stackoverflow.com/questions/2500929/why-is-php-not-allowing-comparison/2501075?cid=2496106#2501075</id>
+    <title type="text">Comment by mikej on Why is PHP not allowing comparison?</title>
+    <author>
+        <name>mikej</name>
+        <uri>http://stackoverflow.com/users/63034</uri>
+    </author>
+    <link rel="alternate" href="http://stackoverflow.com/questions/2500929/why-is-php-not-allowing-comparison/2501075#2501075" />
+    <published>2010-03-23T16:13:07Z</published>   
+    <updated>2010-03-23T16:13:07Z</updated>
+    <summary type="html">This isn't to do with with the specific name of the field e.g. &amp;quot;alertStatus&amp;quot;. When you refresh the page Firefox remembers the previous data from your form fields and restores the form to this state, overriding the &amp;quot;checked&amp;quot; that is in the HTML source. You need to do a full refresh (Ctrl+F5) instead. This is why renaming the field appeared to help because Firefox doesn't have a remembered value for the new name.</summary>
+</entry>
+</feed>
