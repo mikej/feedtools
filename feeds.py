@@ -39,17 +39,21 @@ class Feeds(object):
     def _commit(self):
         self.conn.commit()
 
-    def _get_feed_id(self, feed_url):
+    def _get_feed_id(self, feed_url, add_if_new = True):
         c = self.conn.cursor()
-        c.execute('SELECT feed_id FROM feeds WHERE url = ?', (feed_url,))
-        row = c.fetchone()
-        if row:
-            feed_id = row[0]
-        else:
-            c.execute('INSERT INTO feeds (url) VALUES (?)', (feed_url,))
-            feed_id = c.lastrowid
-            self._commit()
-        c.close()
+	try:
+	    c.execute('SELECT feed_id FROM feeds WHERE url = ?', (feed_url,))
+	    row = c.fetchone()
+	    if row:
+	        feed_id = row[0]
+	    elif add_if_new:
+                c.execute('INSERT INTO feeds (url) VALUES (?)', (feed_url,))
+		feed_id = c.lastrowid
+		self._commit()
+	    else:
+                raise Exception("No feed data for %s" % feed_url)
+	finally:
+            c.close()
         return feed_id
 
     def _make_entry(self, cursor, row):
